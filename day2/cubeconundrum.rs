@@ -26,10 +26,6 @@ fn main() {
 }
 
 fn game_possible(game: &str, colours: &HashMap<&str, i32>) -> i32 {
-    let mut cubes = HashMap::new();
-    cubes.insert("red", 0);
-    cubes.insert("green", 0);
-    cubes.insert("blue", 0);
 
     let mut possible = true;
 
