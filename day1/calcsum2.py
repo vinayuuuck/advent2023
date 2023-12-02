@@ -1,8 +1,14 @@
 
 def getdigit(code):
-    # TODO: Implement this function
 
-    return 0
+    # if first character is a digit, dig = 10*first
+    # if first character is not a digit, take the substring from first character to the point where a digit is found
+
+    if code[0].isdigit():
+        dig = int(code[0])*10
+    
+    else:
+        substr = "".join([char for char in code if not char.isdigit()])
 
 def sumcode(liststr):
     total = 0
