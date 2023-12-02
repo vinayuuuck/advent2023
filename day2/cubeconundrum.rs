@@ -32,7 +32,7 @@ fn game_possible(game: &str, colours: &HashMap<&str, i32>) -> i32 {
     let game_num = &game[5..game.find(":").unwrap()];
     let game_num: i32 = game_num.parse().unwrap();
 
-    let sets = game[game.find(":").unwrap()+2..].split("; ");
+    let sets = game[game.find(":").unwrap()+2..].split("; "); // the +2 is to skip the ": " part of the string
 
     for s in sets{
         let g = s.split(", ");
