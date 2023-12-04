@@ -14,30 +14,18 @@ fn main(){
     let mut total = 0;
 
     for line in lines {
-        let nums = &line[9..];
 
-        let win_nums_str = nums.split(" | ").collect::<Vec<&str>>()[0].trim().split(" ").collect::<Vec<&str>>();
-        let our_nums_str = nums.split(" | ").collect::<Vec<&str>>()[1].trim().split(" ").collect::<Vec<&str>>();
+        let win_nums = line[9..].split(" | ").collect::<Vec<&str>>()[0].trim().split(" ").collect::<HashSet<&str>>();
+        let our_nums = line[9..].split(" | ").collect::<Vec<&str>>()[1].trim().split(" ").collect::<HashSet<&str>>();
 
-        let mut win_nums = HashSet::new();
-        for num in win_nums_str {
-            if num != "" {
-                win_nums.insert(num.parse::<i32>().unwrap());
-            }
+        let win_nums = win_nums.into_iter().filter(|&x| x != "").collect::<HashSet<&str>>();
+        let our_nums = our_nums.into_iter().filter(|&x| x != "").collect::<HashSet<&str>>();
+
+        let intersection_len = win_nums.intersection(&our_nums).collect::<HashSet<&&str>>().len();
+
+        if intersection_len != 0 {
+            total += 2_i32.pow((intersection_len-1) as u32);
         }
-
-        let mut our_nums = HashSet::new();
-        for num in our_nums_str {
-            if num != "" {
-                our_nums.insert(num.parse::<i32>().unwrap());
-            }
-        }
-
-        let get_win = win_nums.intersection(&our_nums).collect::<Vec<&i32>>().len();
-        if get_win !=0 {
-            total += 2_i32.pow((get_win-1) as u32);
-        }
-
     }
 
     println!("Total amount won: {}", total);
