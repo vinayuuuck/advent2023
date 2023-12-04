@@ -1,16 +1,7 @@
 
 use std::io;
 use std::fs;
-
-fn winning_card(win_nums: Vec<i32>, our_nums: Vec<i32>) -> i32 {
-    let mut count = 0;
-    for num in our_nums {
-        if win_nums.contains(&num) {
-            count += 1;
-        }
-    }
-    return count;
-}
+use std::collections::HashSet;
 
 fn main(){
     
@@ -28,21 +19,21 @@ fn main(){
         let win_nums_str = nums.split(" | ").collect::<Vec<&str>>()[0].trim().split(" ").collect::<Vec<&str>>();
         let our_nums_str = nums.split(" | ").collect::<Vec<&str>>()[1].trim().split(" ").collect::<Vec<&str>>();
 
-        let mut win_nums = Vec::new();
+        let mut win_nums = HashSet::new();
         for num in win_nums_str {
             if num != "" {
-                win_nums.push(num.parse::<i32>().unwrap());
+                win_nums.insert(num.parse::<i32>().unwrap());
             }
         }
 
-        let mut our_nums = Vec::new();
+        let mut our_nums = HashSet::new();
         for num in our_nums_str {
             if num != "" {
-                our_nums.push(num.parse::<i32>().unwrap());
+                our_nums.insert(num.parse::<i32>().unwrap());
             }
         }
 
-        let get_win = winning_card(win_nums, our_nums);
+        let get_win = win_nums.intersection(&our_nums).collect::<Vec<&i32>>().len();
         if get_win !=0 {
             total += 2_i32.pow((get_win-1) as u32);
         }
